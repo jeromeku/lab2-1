@@ -44,7 +44,8 @@ Selections are the most important concepts in D3.
 * To access the node: `d3.select("body")[0][0]` equivalent to `document.body`
 * OR reference to a node `d3.select(document.links)`
 * You can then apply operators on them (styles, attributes, properties)
-* Example of CSS selections: ...
+* Ex: '(“element”), (“.class”), (“#id”), (“parent child”)'
+* Example of CSS selections: d3.select(“body”).append("div").style("width", 500).attr("height", 200).style(“color”, “red”)
 
 ### Joining Data to selections
 
@@ -58,7 +59,7 @@ Selections are the most important concepts in D3.
 * Remember the `[1, 2, 3].map()` example above, it actually does the same thing.
 
 * We now attach nodes to the empty array elements
-* What `.data()` does is that it binds data and returns the update
+* What `.data()` does is that it binds/joins data and returns the update
   * `exit()`
   * `enter()`
 
@@ -89,17 +90,21 @@ Let's bind data to existing elements. Here are a series of paragraphs:
 ```
 
 Where are the data?
+* Warning: this is done for the purpose of teaching!
+* `d3.select("p").datum()` returns the data of a single element
+* `d3.select("p").data()` returns an array of elements
 * `d3.select("p").node().__data__`
+* `d3.select("p").property("__data__")`
+* Let's try to change `d3.selectAll("p").node().__data__ = 5`
+* You need to update `d3.select("body").selectAll("p").text(function(d) {return d;})`
+* But you should stick to the `.data()` function, and accessor function to retrieve data
 
-* Adds a transition
+Adding a transition on the update
 
 * Where are the data??
-* `d3.select("td").datum()` returns the data
+
 
 * Examples with existing elements
-
-
-
 
 
 
@@ -132,7 +137,7 @@ Where are the data?
 
 ```html
 <style type="text/css">
-div{
+div {
     background-color: #dd9;
     margin: 5px;
     font-size: 25px;
@@ -159,6 +164,14 @@ div{
 
 Let's do some SVG, collection of elements you can manipulate.
 Now map the data to existing elements and update them
+
+## Exercices
+
+* Generate datasets 
+  * 'var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");'
+  * `d3.range(20)`
+  * 
+  
 
 ## What else can be done?
 
