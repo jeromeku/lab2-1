@@ -30,17 +30,25 @@ Is example is meant to show what can already be done with an empty document:
 
  * D3 overlods Javascript data structures
  * Example: `[1, 2, 3].map(function(d, i) {return [d, i];})`, with accessor function `d3.max([[1,2], [2, 9], [3, 4]], function(d) { return d[0];})`
- * 
+ * Many, many helpers function: `d3.interpolateString(1, 2)`, etc..
  
 ### Selection and Selections
 
-* D3 returns an array as a selection, using CSS to query.
+Selections are the most important concepts in D3.
+
+* D3 returns DOM nodes selection (in [transerveral order](http://en.wikipedia.org/wiki/Tree_traversal)) as an array, using CSS to query.
 * You can then apply operators on them (styles, attributes, properties)
-* 
+* Examples:
 
 ### Joining Data to selections
 
 * This is probably the most important concept in D3
+
+* Let's directly bind to the root! `d3.select("body").data([1,2,3])`
+* I returns an array of 3 elements `d3.select("body").data([1,2,3])[0].length`
+* Wat? We'll get back to it later.
+* It makes more sens to bind to `d3.select("body").selectAll("p").data([1,2,3])[0].length` 
+
 
 ```javascript
     var data = [10, 20, 30 , 40, 50];
@@ -51,6 +59,9 @@ Is example is meant to show what can already be done with an empty document:
         .transition().delay(function(d, i) { return 500*i; })
         .text(function(d) { return d});
 ```
+
+* Where are the data??
+* `d3.select("td").datum()` returns the data
 
 * Examples with existing elements
 
