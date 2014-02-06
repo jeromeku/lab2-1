@@ -24,6 +24,8 @@ Below is the `HTML` boilerplate for the rest of the examples during this lab.
 </html>
 ```
 
+* Empty document with no external CSS file for style
+
 Is example is meant to show what can already be done with an empty document:
 
  * Open the Chrome developper console
@@ -46,30 +48,50 @@ Selections are the most important concepts in D3.
 
 ### Joining Data to selections
 
-* **The most difficult D3 concept:** 
+* The most difficult concept with D3:
 
 ```d3.select("body").selectAll("p").data([1,2,3])```
 
-* `d3.select("body").selectAll("p")` is an empty array
-* `d3.select("body").selectAll("p").data([1,2,3])` is an array of empty elements!
+* `d3.select("body").selectAll("p")` is an empty array.
+* `d3.select("body").selectAll("p").data([1,2,3])` is an array of empty elements.
 * Proof `d3.select("body").selectAll("p").data([1,2,3])[0].length`
-* Wat? We'll get back to it later.
-* It makes more sens to bind to `d3.select("body").selectAll("p").data([1,2,3])[0].length` 
-* Remember the `[1, 2, 3].map()` example above, it does the same thing!
+* Remember the `[1, 2, 3].map()` example above, it actually does the same thing.
+
+* We now attach nodes to the empty array elements
+* What `.data()` does is that it binds data and returns the update
+  * `exit()`
+  * `enter()`
+
+Back to the update:
+* We are going to bind data and call the update function and add elements.
+* `d3.select("body").selectAll("p").data([1,2,3]).append("p").text(function(d) {return d;})`
+
 * It creates placeholders are empty elements created to contain future elements
   * They are visible in the DOM inspector
-It creates enter() and exit() subselections
 
+Let's bind data to existing elements. Here are a series of paragraphs:
+
+```html
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+```
 
 ```javascript
     var data = [10, 20, 30 , 40, 50];
 
     d3.select("body").selectAll("p")
         .data(data)
-        .append("p")
         .transition().delay(function(d, i) { return 500*i; })
         .text(function(d) { return d});
 ```
+
+Where are the data?
+* `d3.select("p").node().__data__`
+
+* Adds a transition
 
 * Where are the data??
 * `d3.select("td").datum()` returns the data
@@ -135,7 +157,8 @@ div{
   </script>
 ```
 
-
+Let's do some SVG, collection of elements you can manipulate.
+Now map the data to existing elements and update them
 
 ## What else can be done?
 
