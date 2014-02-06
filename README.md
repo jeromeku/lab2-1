@@ -1,6 +1,8 @@
 lab2
 ====
 
+As a reminder, you have the [gallery](https://github.com/mbostock/d3/wiki/Gallery), [tutorials](https://github.com/mbostock/d3/wiki/Tutorials), the [API](https://github.com/mbostock/d3/wiki/API-Reference) and the [source code](https://github.com/mbostock/d3).
+
 ## Empty template
 
 Below is the `HTML` boilerplate for the rest of the examples during this lab.
@@ -27,9 +29,8 @@ Is example is meant to show what can already be done with an empty document:
  * Open the Chrome developper console
  * Look at the D3 object and explore its attribute and functions.
  * Example: functions, such as the first ones `d3.ascending(1, 2)` and `d3.max([1, 3, 4])`
-
- * D3 overlods Javascript data structures
- * Example: `[1, 2, 3].map(function(d, i) {return [d, i];})`, with accessor function `d3.max([[1,2], [2, 9], [3, 4]], function(d) { return d[0];})`
+ * D3 overloads Javascript data structures
+ * Example: `[1, 2, 3].map(function(d, i) {return [d, i];})`, with accessor function `d3.max([[1,2], [2, 9], [3, 4]], function(d) { return d[0];})` (e.g. if you have object or arrays)
  * Many, many helpers function: `d3.interpolateString(1, 2)`, etc..
  
 ### Selection and Selections
@@ -37,17 +38,27 @@ Is example is meant to show what can already be done with an empty document:
 Selections are the most important concepts in D3.
 
 * D3 returns DOM nodes selection (in [transerveral order](http://en.wikipedia.org/wiki/Tree_traversal)) as an array, using CSS to query.
+* Example: `d3.select("body")`
+* To access the node: `d3.select("body")[0][0]` equivalent to `document.body`
+* OR reference to a node `d3.select(document.links)`
 * You can then apply operators on them (styles, attributes, properties)
-* Examples:
+* Example of CSS selections: ...
 
 ### Joining Data to selections
 
-* This is probably the most important concept in D3
+* **The most difficult D3 concept:** 
 
-* Let's directly bind to the root! `d3.select("body").data([1,2,3])`
-* I returns an array of 3 elements `d3.select("body").data([1,2,3])[0].length`
+```d3.select("body").selectAll("p").data([1,2,3])```
+
+* `d3.select("body").selectAll("p")` is an empty array
+* `d3.select("body").selectAll("p").data([1,2,3])` is an array of empty elements!
+* Proof `d3.select("body").selectAll("p").data([1,2,3])[0].length`
 * Wat? We'll get back to it later.
 * It makes more sens to bind to `d3.select("body").selectAll("p").data([1,2,3])[0].length` 
+* Remember the `[1, 2, 3].map()` example above, it does the same thing!
+* It creates placeholders are empty elements created to contain future elements
+  * They are visible in the DOM inspector
+It creates enter() and exit() subselections
 
 
 ```javascript
@@ -65,10 +76,8 @@ Selections are the most important concepts in D3.
 
 * Examples with existing elements
 
-It creates enter() and exit() subselections
 
 
-* Placeholders are empty elements created to contain future elements
 
 
 
