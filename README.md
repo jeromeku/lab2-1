@@ -52,6 +52,8 @@ Selections are the most important concepts in D3.
 * Ex: '("element"), (".class"), ("#id"), ("parent child")'
 * Adding paragraphs and changing their properties `d3.select("p").style("font-size", 40+"px")`
 * Example of CSS selections: `d3.select("body").append("div").style("width", 500).attr("height", 200).style("color", “red")`
+* SelectAll selects all elements: `d3.selectAll("p").style("color", "blue")`
+* Arrays `[1, 2, 3].map(function(d, i) {return [d, i];})`, with accessor function `d3.max([[1,2], [2, 9], [3, 4]], function(d) { return d[0];})` (e.g. if you have object or arrays)
 
 ### Joining Data to selections
 
@@ -60,8 +62,7 @@ Selections are the most important concepts in D3.
 ```
 d3.select("body").selectAll("p").data([1,2,3])
 ```
- * Arrays `[1, 2, 3].map(function(d, i) {return [d, i];})`, with accessor function `d3.max([[1,2], [2, 9], [3, 4]], function(d) { return d[0];})` (e.g. if you have object or arrays)
- * 
+
 * `d3.select("body").selectAll("p")` is an empty array.
 * `d3.select("body").selectAll("p").data([1,2,3])` is an array of empty elements.
 * Proof `d3.select("body").selectAll("p").data([1,2,3])[0].length`
@@ -78,7 +79,18 @@ Back to the update:
 * It creates placeholders are empty elements created to contain future elements
   * They are visible in the DOM inspector
 
-Let's bind data to existing elements. Here are a series of paragraphs:
+Where are the data?
+* Warning: this is done for the purpose of teaching!
+* `d3.select("p").datum()` returns the data of a single element
+* `d3.select("p").data()` returns an array of elements
+* `d3.select("p").node().__data__`
+* `d3.select("p").property("__data__")`
+* Let's try to change `d3.selectAll("p").node().__data__ = 5` but not recommended
+* Better way `d3.select("body").selectAll("p").text(function(d) { return d;})` by sticking to the `.data()` function, and accessor function to retrieve data.
+
+## Let's add some code
+
+Here are a series of paragraphs:
 
 ```html
 <p></p>
@@ -88,8 +100,10 @@ Let's bind data to existing elements. Here are a series of paragraphs:
 <p></p>
 ```
 
+Let's bind data to existing elements, with a transition:
+
 ```javascript
-    var data = [10, 20, 30 , 40, 50];
+    var data = [1, 2, 3, 4, 5];
 
     d3.select("body").selectAll("p")
         .data(data)
@@ -97,17 +111,6 @@ Let's bind data to existing elements. Here are a series of paragraphs:
         .text(function(d) { return d});
 ```
 
-Where are the data?
-* Warning: this is done for the purpose of teaching!
-* `d3.select("p").datum()` returns the data of a single element
-* `d3.select("p").data()` returns an array of elements
-* `d3.select("p").node().__data__`
-* `d3.select("p").property("__data__")`
-* Let's try to change `d3.selectAll("p").node().__data__ = 5`
-* You need to update `d3.select("body").selectAll("p").text(function(d) {return d;})`
-* But you should stick to the `.data()` function, and accessor function to retrieve data
-
-Adding a transition on the update
 
 ## Paragraphs
 
@@ -122,7 +125,7 @@ Adding a transition on the update
         .enter()
         .append("p")
         .transition().delay(function(d, i) { return 500*i; })
-        .text(function(d) { return d});
+        .text(function(d) { return d; });
 ```
 
 ## Divs
