@@ -1,7 +1,7 @@
 Lab2
 ====
 
-As a reminder, you have the [gallery](https://github.com/mbostock/d3/wiki/Gallery), [tutorials](https://github.com/mbostock/d3/wiki/Tutorials), the [API](https://github.com/mbostock/d3/wiki/API-Reference) and the [source code](https://github.com/mbostock/d3) to find more happiness with D3.
+As a reminder, you have the [gallery](https://github.com/mbostock/d3/wiki/Gallery), [tutorials](https://github.com/mbostock/d3/wiki/Tutorials), the [API](https://github.com/mbostock/d3/wiki/API-Reference), the [research article](http://vis.stanford.edu/files/2011-D3-InfoVis.pdf) and the [source code](https://github.com/mbostock/d3) to find even more happiness with D3.
 
 ## Basic HTML document
 
@@ -212,6 +212,54 @@ A little flashback now: what if we only have Homer and Marge?
     .style("width", function(d) { return (10*d.age) + "px"; })
 ```
 
+## SVG
+
+An SVG bar chart ([source](http://www.recursion.org/d3-for-mere-mortals/))
+
+```json
+  var data = [{year: 2006, books: 54},
+            {year: 2007, books: 43},
+            {year: 2008, books: 41},
+            {year: 2009, books: 44},
+            {year: 2010, books: 35}];
+
+  var barWidth = 40;
+  var width = (barWidth + 10) * data.length;
+  var height = 200;
+
+  var x = d3.scale.linear().domain([0, data.length]).range([0, width]);
+  var y = d3.scale.linear().domain([0, d3.max(data, function(d) { return d.books; })]).
+    rangeRound([0, height]);
+
+  // add the canvas to the DOM
+  var barDemo = d3.select("body").
+    append("svg:svg").
+    attr("width", width).
+    attr("height", height);
+
+  barDemo.selectAll("rect").
+    data(data).
+    enter().
+    append("svg:rect").
+    attr("x", function(d, i) { return x(i); }).
+    attr("y", function(d) { return height - y(d.books); }).
+    attr("height", function(d) { return y(d.books); }).
+    attr("width", barWidth).
+    attr("fill", "#2d578b");
+
+  barDemo.selectAll("text").
+    data(data).
+    enter().
+    append("svg:text").
+    attr("x", function(d, i) { return x(i) + barWidth; }).
+    attr("y", function(d) { return height - y(d.books); }).
+    attr("dx", -barWidth/2).
+    attr("dy", "1.2em").
+    attr("text-anchor", "middle").
+    text(function(d) { return d.books;}).
+    attr("fill", "white");
+```
+
 ## Table
 
 Look at this example (from [D3 wiki](https://github.com/mbostock/d3/wiki/Selections))
@@ -234,8 +282,6 @@ var td = tr.selectAll("td")
     .text(function(d) { return d; });
 ```
 
-Let's do some SVG, collection of elements you can manipulate.
-Now map the data to existing elements and update them
 
 ## More Exercices
 
