@@ -34,14 +34,12 @@ However, even if empty, this document allows us to do a lot of things:
 * Open the Chrome developper console.
 * Look at the D3 object and explore its attribute and functions.
 * Examples: 
-   * Which D3 version is? `d3.version`.
-   * Execute functions such as `d3.ascending(1, 2)` and `d3.max([1, 3, 4])`.
-   * Look at the [source code](https://github.com/mbostock/d3/blob/master/d3.js) for a more readable code.
-   * Explore other fields coming with [JavaScript objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype).
- * Once loaded, D3 overloads some Javascript data structures
- * Example: `[1, 2, 3].map(function(d, i) {return [d, i];})`, with accessor function `d3.max([[1,2], [2, 9], [3, 4]], function(d) { return d[0];})` (e.g. if you have object or arrays)
- * Many, many helpers function: `d3.interpolateString(1, 2)`, etc..
- 
+  * Which D3 version is? `d3.version`.
+  * Execute functions such as `d3.ascending(1, 2)` and `d3.max([1, 3, 4])`.
+  * Look at the [source code](https://github.com/mbostock/d3/blob/master/d3.js) for a more readable code.
+  * Explore other fields coming with [JavaScript objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype).
+* Many, many helpers function: `d3.interpolateString(1, 2)`, etc..
+
 ### Selection and Selections
 
 Selections are the most important concepts in D3.
@@ -51,7 +49,7 @@ Selections are the most important concepts in D3.
 * To access the node: `d3.select("body")[0][0]` equivalent to `document.body`
 * OR reference to a node `d3.select(document.links)`
 * You can then apply operators on them (styles, attributes, properties)
-* Ex: '(“element”), (“.class”), (“#id”), (“parent child”)'
+* Ex: '("element"), (".class"), ("#id"), ("parent child")'
 * Example of CSS selections: d3.select(“body”).append("div").style("width", 500).attr("height", 200).style(“color”, “red”)
 
 ### Joining Data to selections
@@ -61,7 +59,8 @@ Selections are the most important concepts in D3.
 ```
 d3.select("body").selectAll("p").data([1,2,3])
 ```
-
+ * Arrays `[1, 2, 3].map(function(d, i) {return [d, i];})`, with accessor function `d3.max([[1,2], [2, 9], [3, 4]], function(d) { return d[0];})` (e.g. if you have object or arrays)
+ * 
 * `d3.select("body").selectAll("p")` is an empty array.
 * `d3.select("body").selectAll("p").data([1,2,3])` is an array of empty elements.
 * Proof `d3.select("body").selectAll("p").data([1,2,3])[0].length`
