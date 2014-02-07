@@ -44,7 +44,7 @@ However, even if empty, this document allows us to do a lot of things:
 
 Selections are the most important concepts in D3.
 
-* D3 returns DOM nodes selection (in [transerveral order](http://en.wikipedia.org/wiki/Tree_traversal)) as an array, using CSS to query.
+* D3 returns DOM nodes selection (in [transerveral order](http://en.wikipedia.org/wiki/Tree_traversal)) as an "array" (see [details](http://bost.ocks.org/mike/selection/#subclass), using CSS to query.
 * Example: `d3.select("body")`
 * To access the node: `d3.select("body")[0][0]` equivalent to `document.body`
 * OR reference to a node `d3.select(document.links)`
@@ -88,7 +88,7 @@ Where are the data?
 * Let's try to change `d3.selectAll("p").node().__data__ = 5` but not recommended
 * Better way `d3.select("body").selectAll("p").text(function(d) { return d;})` by sticking to the `.data()` function, and accessor function to retrieve data.
 
-## Let's add some code
+## Let's add some code (finally!)
 
 Here are a series of paragraphs:
 
@@ -130,8 +130,7 @@ Let's bind data to existing elements, with a transition:
 
 ## Divs
 
-* The code below binds data to existing DOM object
-*
+* The code below binds data to existing DOM object:
 
 ```css
   <style type="text/css">
@@ -168,17 +167,17 @@ Let's bind data to existing elements, with a transition:
 Let's do some conditionnal styling:
 
 ```javascript
-.style("background-color", function(d) {
-  if (d.age > 15) {   //Threshold of 15
-    return "red";
-  }
-})
+  .style("background-color", function(d) {
+    if (d.age > 15) { 
+      return "red";
+    }
+  })
 ```
 
 A little flashback now: what if we only have Homer and Marge?
 
 ```javascript
-  var dataset = [36, 34]
+  var dataset = [36, 34];
 ```
 
 * Only existing `<div>` are updated
@@ -211,7 +210,6 @@ A little flashback now: what if we only have Homer and Marge?
     .data(dataset)
     .transition().duration(function(d, i) { return 1000*i;})
     .style("width", function(d) { return (10*d.age) + "px"; })
-    .text(function(d) { return d.name;})
 ```
 
 ## Table
@@ -234,7 +232,6 @@ var td = tr.selectAll("td")
     .data(function(d) { return d; })
   .enter().append("td")
     .text(function(d) { return d; });
-
 ```
 
 Let's do some SVG, collection of elements you can manipulate.
@@ -242,11 +239,11 @@ Now map the data to existing elements and update them
 
 ## More Exercices
 
-* Generate datasets 
+* Generate datasets using those function and make the previous example scalable!
   * 'var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");'
   * `d3.range(20)`
   * Math.random()
 
-* Update the previous examples and add scales to make them fit on the screen
+* Bar chart example (from [D3 Examples](http://bl.ocks.org/mbostock/3885304))
 
 
