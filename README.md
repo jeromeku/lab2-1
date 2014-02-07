@@ -1,9 +1,9 @@
 lab2
 ====
 
-As a reminder, you have the [gallery](https://github.com/mbostock/d3/wiki/Gallery), [tutorials](https://github.com/mbostock/d3/wiki/Tutorials), the [API](https://github.com/mbostock/d3/wiki/API-Reference) and the [source code](https://github.com/mbostock/d3).
+As a reminder, you have the [gallery](https://github.com/mbostock/d3/wiki/Gallery), [tutorials](https://github.com/mbostock/d3/wiki/Tutorials), the [API](https://github.com/mbostock/d3/wiki/API-Reference) and the [source code](https://github.com/mbostock/d3) to find more happiness with D3.
 
-## Empty template
+## Basic HTML document
 
 Below is the `HTML` boilerplate for the rest of the examples during this lab.
 
@@ -13,6 +13,9 @@ Below is the `HTML` boilerplate for the rest of the examples during this lab.
 <head>
   <meta charset=utf-8 />
   <title>CS 171 Lab 2</title>
+  <style type="text/css">
+  
+  </style>
   <script src="http://d3js.org/d3.v3.min.js" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
@@ -23,7 +26,7 @@ Below is the `HTML` boilerplate for the rest of the examples during this lab.
 </html>
 ```
 
-* As you can see, it is an "empty" document with no external CSS file for style.
+* As you can see, it is an "empty" document with no CSS code or external file for style.
 * You can load D3 from a local script.
 
 However, even if empty, this document allows us to do a lot of things:
@@ -108,6 +111,8 @@ Adding a transition on the update
 
 ## Paragraphs
 
+* The code below creates paragraphs and fill them with the data as text.
+* Elements are progressively updates according to their position in the DOM
 
 ```javascript
     var data = [10, 20, 30 , 40, 50];
@@ -121,6 +126,9 @@ Adding a transition on the update
 ```
 
 ## Divs
+
+* The code below binds data to existing DOM object
+*
 
 ```css
   <style type="text/css">
@@ -154,8 +162,38 @@ Adding a transition on the update
     .style("width", function(d) { return (10*d) + "px"; })
 ```
 
-* What happens if we have a new family member? Milhouse, age 10.
-* 
+
+A little flashback now:
+
+```javascript
+  var dataset = [{"name": "Homer", "age": 36}, {"name": "Marge", "age": 34}]
+
+  d3.selectAll("div")
+    .data(dataset)
+    .transition().duration(function(d, i) { return 1000*i;})
+    .style("width", function(d) { return (10*d.age) + "px"; })
+    .text(function(d) { return d.name;})
+```
+
+* What happens if we have new family members?
+
+```javascript
+ var dataset = [{"name": "Homer", "age": 36}, {"name": "Marge", "age": 34}, {"name": "Bart", "age": 10}, {"name": "Lisa", "age": 10}, {"name": "Maggie", "age": 1}];
+
+  d3.select("body")
+    .selectAll("div")
+    .data(dataset)
+    .enter()
+    .append("div")
+    .style("width", "10px")
+    .text(function(d) { return d.name;})
+
+  d3.selectAll("div")
+    .data(dataset)
+    .transition().duration(function(d, i) { return 1000*i;})
+    .style("width", function(d) { return (10*d.age) + "px"; })
+    .text(function(d) { return d.name;})
+```
 
 ## Table
 
@@ -170,49 +208,16 @@ Adding a transition on the update
 </tbody>
 ```
 
-## Visualizing Data!!
-
-```html
-<style type="text/css">
-div {
-    background-color: #dd9;
-    margin: 5px;
-    font-size: 25px;
-    color: #007;
-    padding: 10px;
-    
-}
-</style>
-</head>
-<body>
-  <div>Alex</div>
-  <div>Hendrik</div>
-  <div>David</div>
-  <div>Romain</div>
-
-  <script type="text/javascript">
-      d3.selectAll("div")
-          .data([100,300,200,500])
-          .transition()
-          .duration(2000)
-          .style("width", function(d) { return  d + "px"; });
-  </script>
-```
-
 Let's do some SVG, collection of elements you can manipulate.
 Now map the data to existing elements and update them
 
-## Exercices
+## More Exercices
 
 * Generate datasets 
   * 'var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");'
   * `d3.range(20)`
-  * 
-  
+  * Math.random()
 
-## What else can be done?
-
-* Scales
-*
+* Update the previous examples and add scales to make them fit on the screen
 
 
