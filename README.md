@@ -70,6 +70,7 @@ d3.select("body").selectAll("p").data([1,2,3])
 * What `.data()` does is that it binds/joins data and returns the update.
   * `exit()` returns a selection of non-binded elements
   * `enter()` returns a selection of newly binded elements
+* Advanced reading: corresponding [D3 source](https://github.com/mbostock/d3/blob/master/d3.js#L760)
 
 Back to the update:
 * We are going to bind data and call the update function and add elements.
