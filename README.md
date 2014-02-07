@@ -34,7 +34,8 @@ However, even if empty, this document allows us to do a lot of things:
    * Which D3 version is? `d3.version`.
    * Execute functions such as `d3.ascending(1, 2)` and `d3.max([1, 3, 4])`.
    * Look at the [source code](https://github.com/mbostock/d3/blob/master/d3.js) for a more readable code.
- * D3 also overloads Javascript data structures
+   * Explore other fields coming with [JavaScript objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype).
+ * Once loaded, D3 overloads some Javascript data structures
  * Example: `[1, 2, 3].map(function(d, i) {return [d, i];})`, with accessor function `d3.max([[1,2], [2, 9], [3, 4]], function(d) { return d[0];})` (e.g. if you have object or arrays)
  * Many, many helpers function: `d3.interpolateString(1, 2)`, etc..
  
@@ -105,12 +106,7 @@ Where are the data?
 
 Adding a transition on the update
 
-* Where are the data??
-
-
-* Examples with existing elements
-
-
+## Paragraphs
 
 
 ```javascript
@@ -123,6 +119,43 @@ Adding a transition on the update
         .transition().delay(function(d, i) { return 500*i; })
         .text(function(d) { return d});
 ```
+
+## Divs
+
+```css
+  <style type="text/css">
+    div {
+        margin: 10px;
+        font-size: 20px;
+        color: #000;
+        padding: 10px; 
+        background-color:gold;
+        font-family: sans-serif;
+        border-style:solid;
+        border-width:1px;
+    }
+  </style>
+```
+
+```html
+  <div style="width: 0px;">Homer</div>
+  <div style="width: 0px;">Marge</div>
+  <div style="width: 0px;">Bart</div>
+  <div style="width: 0px;">Lisa</div>
+  <div style="width: 0px;">Maggie</div>
+```
+
+```javascript
+  var dataset = [36, 34, 10, 8, 1]
+
+  d3.selectAll("div")
+    .data(dataset)
+    .transition().duration(function(d, i) { return 1000*i;})
+    .style("width", function(d) { return (10*d) + "px"; })
+```
+
+* What happens if we have a new family member? Milhouse, age 10.
+* 
 
 ## Table
 
