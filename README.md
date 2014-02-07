@@ -26,34 +26,32 @@ Below is the `HTML` boilerplate for the rest of the examples during this lab.
 </html>
 ```
 
-* As you can see, it is an "empty" document with no CSS code or external file for style.
-* You can load D3 from a local script.
+* As you can see, it is a quasi-empty document with no CSS code or external file for style.
+* D3 is loaded from a remote server, but you can load D3 from a local file system.
 
-However, even if empty, this document allows us to do a lot of things:
-
-* Open the Chrome developper console.
-* Look at the D3 object and explore its attribute and functions.
+Surprisingly, even if empty, this document allows us to do a lot of fun things. To get started, load the document and open the Chrome developer console.
+* Look at the D3 object (type `d3` in the console) and explore its attribute and functions.
 * Examples: 
   * Which D3 version is? `d3.version`.
-  * Execute functions such as `d3.ascending(1, 2)` and `d3.max([1, 3, 4])`.
+  * Look at the code structure
   * Look at the [source code](https://github.com/mbostock/d3/blob/master/d3.js) for a more readable code.
-  * Explore other fields coming with [JavaScript objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype).
-* Many, many helpers function: `d3.interpolate(1, 10)`, etc..
+  * Execute functions such as `d3.ascending(1, 2)`, `d3.max([1, 3, 4])`, `d3.interpolate(1, 10)`.
+  * Notice default functions coming with [JavaScript objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype).
 
 ### Selection and Selections
 
 Selections are the most important concepts in D3.
 
-* D3 returns DOM nodes selection (in [transerveral order](http://en.wikipedia.org/wiki/Tree_traversal)) as an "array" (see [details](http://bost.ocks.org/mike/selection/#subclass), using CSS to query.
-* Example: `d3.select("body")`
+* D3 returns DOM nodes selection (in [transerveral order](http://en.wikipedia.org/wiki/Tree_traversal)) as an "array" (see this [article](http://bost.ocks.org/mike/selection/#subclass) for more details), using CSS on an object as query.
+* Query using CSS `d3.select("body")`
 * To access the node: `d3.select("body")[0][0]` equivalent to `document.body`
-* OR reference to a node `d3.select(document.links)`
+* Query using a reference to a node `d3.select(document.links)`
 * You can then apply operators on them (styles, attributes, properties)
 * Ex: '("element"), (".class"), ("#id"), ("parent child")'
-* Adding paragraphs and changing their properties `d3.select("p").style("font-size", 40+"px")`
+* Add paragraphs and change their properties `d3.select("p").style("font-size", 40+"px")`
 * Example of CSS selections: `d3.select("body").append("div").style("width", 500).attr("height", 200).style("color", “red")`
 * SelectAll selects all elements: `d3.selectAll("p").style("color", "blue")`
-* Arrays `[1, 2, 3].map(function(d, i) {return [d, i];})`, with accessor function `d3.max([[1,2], [2, 9], [3, 4]], function(d) { return d[0];})` (e.g. if you have object or arrays)
+* Selections work pretty much like arrays `[10, 20, 30].map(function(d, i) { return [d, i];})`, with accessor function `d3.max([[1,2], [2, 9], [3, 4]], function(d) { return d[0];})` (e.g. if you have object or arrays)
 
 ### Joining Data to selections
 
@@ -65,27 +63,26 @@ d3.select("body").selectAll("p").data([1,2,3])
 
 * `d3.select("body").selectAll("p")` is an empty array.
 * `d3.select("body").selectAll("p").data([1,2,3])` is an array of empty elements.
-* Proof `d3.select("body").selectAll("p").data([1,2,3])[0].length`
-* Remember the `[1, 2, 3].map()` example above, it actually does the same thing.
-* We now attach nodes to the empty array elements
-* What `.data()` does is that it binds/joins data and returns the update
-  * `exit()`
-  * `enter()`
+* Proof `d3.select("body").selectAll("p").data([1,2,3])[0].length`.
+* Similar to `[1, 2, 3].map()`.
+* We now attach nodes to the empty array elements with `data()`.
+* What `.data()` does is that it binds/joins data and returns the update.
+  * `exit()` returns a selection of non-binded elements
+  * `enter()` returns a selection of newly binded elements
 
 Back to the update:
 * We are going to bind data and call the update function and add elements.
-* `d3.select("body").selectAll("p").data([1,2,3]).append("p").text(function(d) {return d;})`
-
-* It creates placeholders are empty elements created to contain future elements
-  * They are visible in the DOM inspector
+* `d3.select("body").selectAll("p").data([1,2,3]).enter().append("p").text(function(d) {return d;})`.
+* It created placeholders of empty elements, then added the `p` elements.
+* They are visible in the DOM inspector.
 
 Where are the data?
-* Warning: this is done for the purpose of teaching!
-* `d3.select("p").datum()` returns the data of a single element
-* `d3.select("p").data()` returns an array of elements
-* `d3.select("p").node().__data__`
-* `d3.select("p").property("__data__")`
-* Let's try to change `d3.selectAll("p").node().__data__ = 5` but not recommended
+* (Warning: this is done for the purpose of understanding how it works..)
+* `d3.select("p").datum()` returns the data for a single element.
+* `d3.select("p").data()` returns an array of elements.
+* `d3.select("p").node().__data__`.
+* `d3.select("p").property("__data__")`.
+* Let's try to change `d3.selectAll("p").node().__data__ = 5` but not recommended.
 * Better way `d3.select("body").selectAll("p").text(function(d) { return d;})` by sticking to the `.data()` function, and accessor function to retrieve data.
 
 ## Let's add some code (finally!)
@@ -111,7 +108,6 @@ Let's bind data to existing elements, with a transition:
         .text(function(d) { return d});
 ```
 
-
 ## Paragraphs
 
 * The code below creates paragraphs and fill them with the data as text.
@@ -130,7 +126,7 @@ Let's bind data to existing elements, with a transition:
 
 ## Divs
 
-* The code below binds data to existing DOM object:
+* The code below binds data to existing DOM objects:
 
 ```css
   <style type="text/css">
@@ -180,7 +176,7 @@ A little flashback now: what if we only have Homer and Marge?
   var dataset = [36, 34];
 ```
 
-* Only existing `<div>` are updated
+* Only existing `<div>` are updated.
 * You can play with the ones which are not binded using `d3.selectAll("div").data(dataset).exit()`.
 
 ```javascript
@@ -214,7 +210,7 @@ A little flashback now: what if we only have Homer and Marge?
 
 ## SVG
 
-An SVG bar chart ([source](http://www.recursion.org/d3-for-mere-mortals/))
+An SVG bar chart ([source](http://www.recursion.org/d3-for-mere-mortals/)).
 
 ```json
   var data = [{year: 2006, books: 54},
@@ -262,7 +258,7 @@ An SVG bar chart ([source](http://www.recursion.org/d3-for-mere-mortals/))
 
 ## Table
 
-Look at this example (from [D3 wiki](https://github.com/mbostock/d3/wiki/Selections))
+Look at this example (from [D3 wiki](https://github.com/mbostock/d3/wiki/Selections)).
 
 ```javascript
 var matrix = [
@@ -291,5 +287,5 @@ var td = tr.selectAll("td")
   * Math.random()
 
 * Bar chart example (from [D3 Examples](http://bl.ocks.org/mbostock/3885304))
-
+* D3 [list of examples](https://github.com/mbostock/d3/wiki/Gallery)
 
