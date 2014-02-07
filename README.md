@@ -52,10 +52,11 @@ Selections are the most important concepts in D3.
 * Example of CSS selections: `d3.select("body").append("div").style("width", 500).attr("height", 200).style("color", “red")`
 * SelectAll selects all elements: `d3.selectAll("p").style("color", "blue")`
 * Selections work pretty much like arrays `[10, 20, 30].map(function(d, i) { return [d, i];})`, with accessor function `d3.max([[1,2], [2, 9], [3, 4]], function(d) { return d[0];})` (e.g. if you have object or arrays)
+* Selections can be filtered with .filter().
 
 ### Joining Data to selections
 
-* The most difficult concept with D3:
+* Data binding:
 
 ```
 d3.select("body").selectAll("p").data([1,2,3])
@@ -212,7 +213,7 @@ A little flashback now: what if we only have Homer and Marge?
 
 An SVG bar chart ([source](http://www.recursion.org/d3-for-mere-mortals/)).
 
-```json
+```javascript
   var data = [{year: 2006, books: 54},
             {year: 2007, books: 43},
             {year: 2008, books: 41},
