@@ -1,4 +1,4 @@
-lab2
+Lab2
 ====
 
 As a reminder, you have the [gallery](https://github.com/mbostock/d3/wiki/Gallery), [tutorials](https://github.com/mbostock/d3/wiki/Tutorials), the [API](https://github.com/mbostock/d3/wiki/API-Reference) and the [source code](https://github.com/mbostock/d3) to find more happiness with D3.
@@ -162,8 +162,24 @@ Adding a transition on the update
     .style("width", function(d) { return (10*d) + "px"; })
 ```
 
+Let's do some conditionnal styling:
 
-A little flashback now:
+```javascript
+.style("background-color", function(d) {
+  if (d.age > 15) {   //Threshold of 15
+    return "red";
+  }
+})
+```
+
+A little flashback now: what if we only have Homer and Marge?
+
+```javascript
+  var dataset = [36, 34]
+```
+
+* Only existing `<div>` are updated
+* You can play with the ones which are not binded using `d3.selectAll("div").data(dataset).exit()`.
 
 ```javascript
   var dataset = [{"name": "Homer", "age": 36}, {"name": "Marge", "age": 34}]
@@ -197,15 +213,25 @@ A little flashback now:
 
 ## Table
 
-```html
-<table border=1>
-<tbody>
-	<tr>
-		<td>(1, 1)</td><td>(1, 2)</td>
-	</tr><tr>
-		<td>(2, 1)</td><td>(2, 2)</td>
-	<tr>
-</tbody>
+Look at this example (from [D3 wiki](https://github.com/mbostock/d3/wiki/Selections))
+
+```javascript
+var matrix = [
+  [11975,  5871, 8916, 2868],
+  [ 1951, 10048, 2060, 6171],
+  [ 8010, 16145, 8090, 8045],
+  [ 1013,   990,  940, 6907]
+];
+
+var tr = d3.select("body").append("table").selectAll("tr")
+    .data(matrix)
+  .enter().append("tr");
+
+var td = tr.selectAll("td")
+    .data(function(d) { return d; })
+  .enter().append("td")
+    .text(function(d) { return d; });
+
 ```
 
 Let's do some SVG, collection of elements you can manipulate.
