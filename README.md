@@ -17,21 +17,24 @@ Below is the `HTML` boilerplate for the rest of the examples during this lab.
 </head>
 <body>
   <script type="text/javascript">
-  
-  
+
   </script>
 </body>
 </html>
 ```
 
-* Empty document with no external CSS file for style
+* As you can see, it is an "empty" document with no external CSS file for style.
+* You can load D3 from a local script.
 
-Is example is meant to show what can already be done with an empty document:
+However, even if empty, this document allows us to do a lot of things:
 
- * Open the Chrome developper console
- * Look at the D3 object and explore its attribute and functions.
- * Example: functions, such as the first ones `d3.ascending(1, 2)` and `d3.max([1, 3, 4])`
- * D3 overloads Javascript data structures
+* Open the Chrome developper console.
+* Look at the D3 object and explore its attribute and functions.
+* Examples: 
+   * Which D3 version is? `d3.version`.
+   * Execute functions such as `d3.ascending(1, 2)` and `d3.max([1, 3, 4])`.
+   * Look at the [source code](https://github.com/mbostock/d3/blob/master/d3.js) for a more readable code.
+ * D3 also overloads Javascript data structures
  * Example: `[1, 2, 3].map(function(d, i) {return [d, i];})`, with accessor function `d3.max([[1,2], [2, 9], [3, 4]], function(d) { return d[0];})` (e.g. if you have object or arrays)
  * Many, many helpers function: `d3.interpolateString(1, 2)`, etc..
  
@@ -51,13 +54,14 @@ Selections are the most important concepts in D3.
 
 * The most difficult concept with D3:
 
-```d3.select("body").selectAll("p").data([1,2,3])```
+```
+d3.select("body").selectAll("p").data([1,2,3])
+```
 
 * `d3.select("body").selectAll("p")` is an empty array.
 * `d3.select("body").selectAll("p").data([1,2,3])` is an array of empty elements.
 * Proof `d3.select("body").selectAll("p").data([1,2,3])[0].length`
 * Remember the `[1, 2, 3].map()` example above, it actually does the same thing.
-
 * We now attach nodes to the empty array elements
 * What `.data()` does is that it binds/joins data and returns the update
   * `exit()`
