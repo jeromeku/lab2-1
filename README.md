@@ -38,7 +38,7 @@ However, even if empty, this document allows us to do a lot of things:
   * Execute functions such as `d3.ascending(1, 2)` and `d3.max([1, 3, 4])`.
   * Look at the [source code](https://github.com/mbostock/d3/blob/master/d3.js) for a more readable code.
   * Explore other fields coming with [JavaScript objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/prototype).
-* Many, many helpers function: `d3.interpolateString(1, 2)`, etc..
+* Many, many helpers function: `d3.interpolate(1, 10)`, etc..
 
 ### Selection and Selections
 
@@ -50,7 +50,8 @@ Selections are the most important concepts in D3.
 * OR reference to a node `d3.select(document.links)`
 * You can then apply operators on them (styles, attributes, properties)
 * Ex: '("element"), (".class"), ("#id"), ("parent child")'
-* Example of CSS selections: d3.select(“body”).append("div").style("width", 500).attr("height", 200).style(“color”, “red”)
+* Adding paragraphs and changing their properties `d3.select("p").style("font-size", 40+"px")`
+* Example of CSS selections: `d3.select("body").append("div").style("width", 500).attr("height", 200).style("color", “red")`
 
 ### Joining Data to selections
 
